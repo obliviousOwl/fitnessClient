@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import UserContext from "../UserContext";
+import UserContext from "../UserContext";
 import WorkoutCard from "../components/WorkoutCard";
 import { Container, Nav } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
