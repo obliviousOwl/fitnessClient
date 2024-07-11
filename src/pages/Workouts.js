@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import UserContext from "../UserContext";
 import WorkoutCard from "../components/WorkoutCard";
 import { Container, Nav } from "react-bootstrap";
