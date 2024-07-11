@@ -9,7 +9,7 @@ export default function Home() {
             <Col className="p-4 text-center">
                 <h1>Welcome Fitness App Manager</h1>
                 <p>Create, Update, Delete and View your workouts</p>
-                <Link className="btn btn-primary" to={'/items'}>Check Our Items</Link>
+                <Link className="btn btn-primary" to={'/workouts'}>View your workout</Link>
             </Col>
         </Row>
 		</>
