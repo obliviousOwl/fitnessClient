@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import UserContext from '../UserContext';
 
 export default function Login() {
 
-    const { setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -59,17 +59,17 @@ export default function Login() {
 
         fetch('https://fitness-tracker-dcb1.onrender.com/users/details', {
             headers: {
-                Authorization: `Bearer ${ token }`
+                Authorization: `Bearer ${token}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
+            .then(res => res.json())
+            .then(data => {
 
-            setUser({
-            id: data.user._id
-            });
+                setUser({
+                    id: data.user._id
+                });
 
-        })
+            })
 
     };
 
@@ -89,6 +89,7 @@ export default function Login() {
 
     return (
 
+        user.id ?
         <Form onSubmit={(e) => authenticate(e)}>
             <h1 className="my-5 text-center">Login</h1>
             <Form.Group controlId="userEmail">
@@ -113,15 +114,18 @@ export default function Login() {
                 />
             </Form.Group>
 
-            {isActive ?
-                <Button variant="primary" type="submit" id="submitBtn">
-                    Submit
-                </Button>
-                :
-                <Button variant="danger" type="submit" id="submitBtn" disabled>
-                    Submit
-                </Button>
+            {
+                isActive ?
+                    <Button variant="primary" type="submit" id="submitBtn">
+                        Submit
+                    </Button>
+                    :
+                    <Button variant="danger" type="submit" id="submitBtn" disabled>
+                        Submit
+                    </Button>
             }
         </Form>
+        :
+        <Navigate to={'/'} />
     )
 }

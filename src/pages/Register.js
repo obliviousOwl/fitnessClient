@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import { Navigate } from 'react-router-dom';
 
 export default function Register() {
 
-	// const {user} = useContext(UserContext);
+	const {user} = useContext(UserContext);
 
 	const [email,setEmail] = useState("");
 	const [password,setPassword] = useState("");
@@ -71,6 +72,7 @@ export default function Register() {
 
 	return (
 
+        user.id ?
         <Form onSubmit={(e) => registerUser(e)}>
         <h1 className="my-5 text-center">Register</h1>
             <Form.Group>
@@ -107,6 +109,8 @@ export default function Register() {
                 : <Button variant="primary" disabled>Submit</Button>
             }
         </Form>
+        :
+        <Navigate to={'/'} />
 		
 		)
 }

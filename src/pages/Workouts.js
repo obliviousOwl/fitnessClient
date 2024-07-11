@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 // import UserContext from "../UserContext";
 import WorkoutCard from "../components/WorkoutCard";
-import { Container } from "react-bootstrap";
+import { Container, Nav } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
 
 
 export default function Workouts() {
 
-    // const { user } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -34,7 +35,7 @@ export default function Workouts() {
     }
 
 
-   
+
     useEffect(() => {
 
         fetch('https://fitness-tracker-dcb1.onrender.com/workouts/getMyWorkouts', {
@@ -52,9 +53,11 @@ export default function Workouts() {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <Container>
-            <WorkoutCard workoutData={workouts} fetchData={fetchData} />
-        </Container>
+        user.id ?
+            <Container>
+                <WorkoutCard workoutData={workouts} fetchData={fetchData} />
+            </Container>
+            :
+            <Navigate to={'/login'} />
     )
-
 }
