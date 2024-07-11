@@ -89,7 +89,7 @@ export default function Login() {
 
     return (
 
-        user.id ?
+        !user.id ?
         <Form onSubmit={(e) => authenticate(e)}>
             <h1 className="my-5 text-center">Login</h1>
             <Form.Group controlId="userEmail">
