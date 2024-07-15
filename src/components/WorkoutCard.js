@@ -1,30 +1,29 @@
-import { useEffect, useState } from "react"
-import { Table } from "react-bootstrap"
-import UpdateWorkout from "./UpdateWorkout"
-import CompleteWorkout from "./CompleteWorkout"
-import DeleteWorkout from "./DeleteWorkout"
+import { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
+import UpdateWorkout from "./UpdateWorkout";
+import CompleteWorkout from "./CompleteWorkout";
+import DeleteWorkout from "./DeleteWorkout";
 
 export default function WorkoutCard({ workoutData, fetchData }) {
-
-    const [workouts, setWorkouts] = useState([])
-
+    const [workouts, setWorkouts] = useState([]);
 
     useEffect(() => {
-        
-        const workoutArr = workoutData.map(workout => {
-            return (
+        if (Array.isArray(workoutData)) {
+            const workoutArr = workoutData.map(workout => (
                 <tr key={workout._id}>
                     <td>{workout.name}</td>
                     <td>{workout.duration}</td>
                     <td className={workout.status === 'completed' ? "text-success" : "text-danger"}>{workout.status}</td>
-                    <td><UpdateWorkout workout={workout._id} fetchData={fetchData}/></td>
-                    <td><CompleteWorkout workout={workout._id} isCompleted={workout.status} fetchData={fetchData} workoutName={workout.name}/></td>
-                    <td><DeleteWorkout workout={workout._id} workoutName={workout.name}/></td>
+                    <td><UpdateWorkout workout={workout._id} fetchData={fetchData} /></td>
+                    <td><CompleteWorkout workout={workout._id} isCompleted={workout.status} fetchData={fetchData} workoutName={workout.name} /></td>
+                    <td><DeleteWorkout workout={workout._id} workoutName={workout.name} /></td>
                 </tr>
-            )
-        })
-        setWorkouts(workoutArr)
-    },[workoutData, fetchData])
+            ));
+            setWorkouts(workoutArr);
+        } else {
+            setWorkouts([]);
+        }
+    }, [workoutData, fetchData]);
 
     return (
         <>
@@ -40,10 +39,15 @@ export default function WorkoutCard({ workoutData, fetchData }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {workouts}
+                    {workouts.length > 0 ? (
+                        workouts
+                    ) : (
+                        <tr>
+                            <td colSpan="6" className="text-center">No Workout found</td>
+                        </tr>
+                    )}
                 </tbody>
             </Table>
-
         </>
-    )
+    );
 }

@@ -29,29 +29,29 @@ function App() {
 
     fetch(`https://fitness-tracker-dcb1.onrender.com/users/details`, {
       headers: {
-        Authorization: `Bearer ${ localStorage.getItem('token') }`
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     })
-    .then(res => res.json())
-    .then(data => {
+      .then(res => res.json())
+      .then(data => {
 
-      if (typeof data.user !== "undefined") {
+        if (typeof data.user !== "undefined") {
 
-        setUser({
-          id: data.user._id
-        });
+          setUser({
+            id: data.user._id
+          });
 
-      } else {
+        } else {
 
-        setUser({
-          id: null
-        });
+          setUser({
+            id: null
+          });
 
-      }
+        }
 
-    })
+      })
 
-    }, []);
+  }, []);
 
   return (
     <UserProvider value={{ user, setUser, unsetUser }}>
